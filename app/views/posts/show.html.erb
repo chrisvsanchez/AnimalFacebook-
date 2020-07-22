@@ -1,0 +1,23 @@
+<h1><%=@post.title %></h1>
+<hr>
+<p><%=@post.content%></p>
+<hr>
+<h3>Comments: <%= @post.comments.count %></h3>
+<%@post.comments.each do |beach|%>
+<ul>
+<p><%= beach.animal.name %></p>
+<hr>
+<li><%= beach.content%></li>
+</ul>
+<%= button_to "Delete", beach, method: :delete %>
+<%end%> 
+<%= form_for @comment do |f|%>
+<input type="hidden" id="hidden" name="comment[post_id]" value=<%= @post.id %>>
+<%= f.label :content, "Type your comment"%><br>
+<%= f.text_area :content %><br>
+<%= f.label :animal_id,"Who is the king?" %><br>
+<%= f.collection_select :animal_id,Animal.all,:id,:name %><br><br>
+<%= f.submit %>
+<% end%>
+
+
